@@ -14,14 +14,14 @@ app.get('/', (req, res) => {
     res.status(200).send('Server is working.')
 })
 
-app.post('/getactivity', (req, res) => {
-    const activityToSearch =
-        req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.activity
-            ? req.body.result.parameters.activity
+app.post('/getmovie', (req, res) => {
+    const movieToSearch =
+        req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.movie
+            ? req.body.result.parameters.movie
             : ''
 
     const reqUrl = encodeURI(
-        `http://www.omdbapi.com/?t=${activityToSearch}&i=${process.env.I_KEY}&apikey=${process.env.API_KEY}`
+        `http://www.omdbapi.com/?t=${movieToSearch}&i=${process.env.I_KEY}&apikey=${process.env.API_KEY}`
     )
     http.get(
         reqUrl,
@@ -31,21 +31,21 @@ app.post('/getactivity', (req, res) => {
                 completeResponse += chunk
             })
             responseFromAPI.on('end', () => {
-                const activity = JSON.parse(completeResponse)
+                const movie = JSON.parse(completeResponse)
 
-                let dataToSend = activityToSearch
-                dataToSend = `${activity.Title}}`
+                dataToSend = `${movie.Title} was released in the year ${movie.Year}. It is directed by ${movie.Director} 
+                and stars ${movie.Actors}.\n Here some glimpse of the plot: ${movie.Plot}.`
 
                 return res.json({
                     fulfillmentText: dataToSend,
-                    source: 'getactivity'
+                    source: 'getmovie'
                 })
             })
         },
         error => {
             return res.json({
                 fulfillmentText: 'Could not get results at this time',
-                source: 'getactivity'
+                source: 'getmovie'
             })
         }
     )
