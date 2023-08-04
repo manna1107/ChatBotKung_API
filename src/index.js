@@ -1,6 +1,6 @@
 const express = require('express')
 // will use this later to send requests
-const http = require('http')
+const http = require('https')
 // import env variables
 require('dotenv').config()
 
@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
+app.get('/getcheck', (req, res) => {
     res.status(200).send('Server is working.')
 })
 

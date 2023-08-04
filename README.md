@@ -1,9 +1,9 @@
 # ChatBotKung_API
 
 {
-    "queryResult": {
+    "result": {
         "parameters": {
-            "activity": "มีกี่สาขา"
+            "movie": "The Dark Knight"
         }
     }
 }
