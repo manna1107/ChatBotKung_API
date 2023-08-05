@@ -1,6 +1,6 @@
 const express = require('express')
 // will use this later to send requests
-const http = require('https')
+const http = require('http')
 // import env variables
 require('dotenv').config()
 
